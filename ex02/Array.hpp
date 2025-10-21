@@ -6,13 +6,15 @@
 /*   By: tobourge <tobourge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 09:40:31 by tobourge          #+#    #+#             */
-/*   Updated: 2025/10/21 14:21:15 by tobourge         ###   ########.fr       */
+/*   Updated: 2025/10/21 17:28:58 by tobourge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
 #include <iostream>
+#include <exception>
+#include <string>
 
 
 template <typename T>
@@ -26,11 +28,15 @@ class Array
     ~Array();
     
     Array&  operator=(const Array & src);
+    T&      operator[](unsigned int i) const;
 
-    T       &getArrayLine(int i);
-    
     unsigned int    size() const;
     
+    class OutOfBoundsIndexException : public std::exception
+    {
+        public: virtual const char* what() const throw();
+    };
+
     private:
     
     T               *_array;
